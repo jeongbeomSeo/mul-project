@@ -1,0 +1,24 @@
+{
+  "name": "mul-project",
+  "version": "1.0.0",
+  "description": "multimedia design project",
+  "main": "init.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node init.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "express": "^4.18.1",
+    "merkle": "^0.2.0",
+    "merkle-js": "^0.0.2",
+    "merkletreejs": "^0.2.31"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "nodemon": "^2.0.16"
+  }
+}
