@@ -1,0 +1,9 @@
+<%- contentFor('body') %>
+<div class="error">
+  <strong>This Page is Error Page</strong>
+  <div class="errorMessage">
+    <% if(typeof errorMessage !== 'undefined') { %>
+    <span> Error Message : <%=errorMessage %> </span>
+    <% } %>
+  </div>
+</div>

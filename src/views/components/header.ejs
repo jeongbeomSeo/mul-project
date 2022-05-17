@@ -2,6 +2,7 @@
   <div class="header__title">
     <a href="/"> <strong>멀미설 프로젝트</strong></a>
   </div>
+
   <nav class="header__nav">
     <ul class="header__nav-items">
       <li class="nav-item">
@@ -13,12 +14,21 @@
       <li class="nav-item">
         <a href="">경매 기록 확인</a>
       </li>
+      <% if(loggedIn === false) { %>
       <li class="nav-item">
-        <a href="">로그인 하기</a>
+        <a href="/user/login">로그인 하기</a>
       </li>
       <li class="nav-item">
         <a href="/user/signup">회원 가입</a>
       </li>
+      <% } else { %>
+      <li class="nav-item">
+        <a href=<%=`/user/${loggedInUser._id}/profile`%>><%=loggedInUser.name%></a>
+      </li>
+      <li class="nav-item">
+        <a href=<%=`/user/logout`%>>log out</a>
+      </li>
+      <% } %>
     </ul>
   </nav>
 </div>

@@ -1,0 +1,19 @@
+<%- contentFor('body') %>
+
+<div class="errorMessage">
+  <% if(typeof errorMessage !== 'undefined') { %>
+  <span> Error Message : <%=errorMessage %> </span>
+  <% } %>
+</div>
+
+<form action="/user/login" class="login" method="post">
+  <input type="text" name="id" placeholder="ID" />
+  <input type="password" name="password" placeholder="PassWord" />
+  <input type="submit" value="Log In &rarr;" />
+</form>
+
+<hr />
+<div>
+  <span>Don't have an account?</span>
+  <a href="./signup">Sign up now &rarr; </a>
+</div>
