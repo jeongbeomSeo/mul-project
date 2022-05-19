@@ -6,6 +6,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import { localsMiddleware } from "./middleware.js";
+import productRouter from "./routers/productRouter.js";
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.set("views", process.cwd() + "/src/views");
 app.use(expressLayouts);
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/uploads", express.static("uploads"));
 
 app.use(
   session({
@@ -29,5 +32,6 @@ app.use(
 app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/user", userRouter);
+app.use("/product", productRouter);
 
 export default app;

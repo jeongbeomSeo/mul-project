@@ -34,7 +34,6 @@ export const postSignup = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
-    console.log(error);
     //Create Error Page
     return res.status(400).render("404", {
       pageTitle: "Error Page",
