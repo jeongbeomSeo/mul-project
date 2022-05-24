@@ -17,6 +17,7 @@ app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets"));
 
 app.use(
   session({
