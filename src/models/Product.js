@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   index: { type: Number, required: true, unique: true },
@@ -13,6 +13,8 @@ const productSchema = new mongoose.Schema({
   price: { type: String, required: true },
   description: { type: String },
   image: { type: String },
+  sold: { type: Boolean, default: false },
+  entrant: [{ type: Object }],
 });
 
 const Product = mongoose.model("Product", productSchema);

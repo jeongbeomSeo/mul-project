@@ -5,12 +5,13 @@ import {
   getRegist,
   postRegist,
 } from "../controllers/productController";
-import { uploadImage } from "../middleware";
+import { protectorMiddleware, uploadImage } from "../middleware";
 
 const productRouter = express.Router();
 
 productRouter
   .route("/regist")
+  .all(protectorMiddleware)
   .get(getRegist)
   .post(uploadImage.single("image"), postRegist);
 productRouter.get("/list", getList);

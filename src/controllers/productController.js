@@ -3,6 +3,7 @@ import {
   BlockBody,
   createGenesisBlock,
   findBlock,
+  isValidNewBlock,
   nextBlock,
 } from "../block";
 import Product from "../models/Product";
@@ -18,7 +19,7 @@ export const postRegist = async (req, res) => {
     file,
   } = req;
   if (!user) {
-    return res.render(404, {
+    return res.render("404", {
       pageTitle: "Not User",
       errorMessage: "Login Frist",
     });
@@ -44,6 +45,7 @@ export const postRegist = async (req, res) => {
     );
     const preBlock = new Block(header, body);
     block = nextBlock(preBlock, user._id, name, price);
+    console.log(block);
   }
   await Product.create({
     index: block.header.index,
@@ -63,6 +65,7 @@ export const postRegist = async (req, res) => {
 };
 
 export const getList = async (req, res) => {
+  let blocks = [];
   const products = await Product.find({});
   if (!products) {
     return res.render("list", {
@@ -70,9 +73,42 @@ export const getList = async (req, res) => {
       empty: "Empty",
     });
   }
+  blocks = products.map((product) => {
+    const header = new findBlock(
+      product.index,
+      product.previousBlockHash,
+      product.merkleRoot,
+      product.timestamp,
+      product.difficulty
+    );
+    const body = new BlockBody(
+      product.time,
+      product.user,
+      product.item,
+      product.price
+    );
+    const block = new Block(header, body);
+    return block;
+  });
+  products[0].valid = true;
+  for (let i = 1; i < blocks.length; i++) {
+    products[i].valid = isValidNewBlock(blocks[i], blocks[i - 1]);
+  }
   return res.render("list", { pageTitle: "Product List", products });
 };
 
-export const getDetail = (req, res) => {
-  return res.render("detail", { pageTitle: "Product Detail" });
+export const getDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const product = await Product.findById({ _id: id });
+  if (!product) {
+    return res
+      .status(404)
+      .render("detail", { pageTitle: "Erorr", errorMessage: "Erorr Error !" });
+  }
+  return res
+    .status(200)
+    .render("detail", { pageTitle: "Product Detail", product });
 };

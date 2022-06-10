@@ -4,6 +4,8 @@ const path = require("path");
 module.exports = {
   entry: {
     main: "./src/client/js/main.js",
+    productCount: "./src/client/js/productCount.js",
+    entry: "./src/client/js/entry.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -6,6 +6,7 @@ import {
   postLogin,
   logout,
   profile,
+  getChargeMoney,
 } from "../controllers/userController";
 import { protectorMiddleware, publicOnlyMiddleware } from "../middleware";
 
@@ -23,5 +24,6 @@ userRouter
   .post(postLogin);
 userRouter.get("/logout", protectorMiddleware, logout);
 userRouter.get("/:id([0-9a-f]{24})/profile", profile);
+userRouter.get("/:id([0-9a-f]{24})/chargeMoney", getChargeMoney);
 
 export default userRouter;

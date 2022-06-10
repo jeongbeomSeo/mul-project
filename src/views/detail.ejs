@@ -1,18 +1,17 @@
 <%- contentFor('body') %>
 
-<h1>Detail Page</h1>
-<span
-  >필요 내용: 사진, 상품명, 상세내용, 최소가격, 남은 시간, (즉시 구매가)</span
->
-<span>가격 등록 할 수 있게 구현 -> 가격 등록시 DB에 유저 + 가격 담겨야함</span>
+<div class="item" data-id="<%-product.id%>">
+  <img src="/<%=product.image%>" width="100" height="100" />
+  <li class="item-name">품명 : <%=product.item%></li>
+  <li class="item-desc">상세 내용: <%=product.description%></li>
+  <li class="item-price" data-price="<%-product.price%>">
+    최소 가격: <%=product.price%>
+  </li>
+  <li class="item-count" data-time="<%-product.time%>"></li>
+  <input type="number" id="entry_money" placeholder="경매 등록 금액" />
+  <button id="entry">Entry</button>
+  <span id="message"></span>
+</div>
 
-<hr />
-
-DB에 유저 + 가격 담겨야함 => 어디에? Product에 담겨야된다. ,로해서 String으로
-합쳐주고, 나중에 split함수 이용해서 숫자 제일 높은거 낙찰 -> 그 사람 거래 성사
-완료 구현 필요.
-
-<hr />
-
-시간의 경우 Date꺼내와서 48시간 맞추기 Count Down. if문 사용해서 같아질 경우
-거래 종료 => fetch보내서 백에서 처리해서 프론트에서 결과 처리 창 뜨게 하기.
+<script src="/assets/js/productCount.js"></script>
+<script src="/assets/js/entry.js"></script>

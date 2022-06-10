@@ -11,7 +11,7 @@ export const postSignup = async (req, res) => {
   } = req;
   const pageTitle = "Sign Up";
   //Checking Database and duplicate users
-  const exists = await User.exists({ $or: [{ name }, { id }] });
+  const exists = await User.exists({ $or: [{ name }, { userId: id }] });
   if (exists) {
     return res.status(400).render("signup", {
       pageTitle,
@@ -29,11 +29,12 @@ export const postSignup = async (req, res) => {
     await User.create({
       name,
       email,
-      id,
+      userId: id,
       password,
     });
     return res.redirect("/");
   } catch (error) {
+    console.log(error);
     //Create Error Page
     return res.status(400).render("404", {
       pageTitle: "Error Page",
@@ -49,7 +50,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const { id, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ id });
+  const user = await User.findOne({ userId: id });
   if (!user) {
     return res.status(400).render("login", {
       pageTitle: pageTitle,
@@ -58,7 +59,7 @@ export const postLogin = async (req, res) => {
   }
   const passwordCheck = await bcrypt.compare(password, user.password);
   if (!passwordCheck) {
-    return res.render(400).render("login", {
+    return res.status(400).render("login", {
       pageTitle: pageTitle,
       errorMessage: "Wrong Password",
     });
@@ -85,5 +86,23 @@ export const profile = (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
+  return res.redirect("/");
+};
+
+export const getChargeMoney = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const user = await User.findOne({ _id: id });
+  user.money += 5000;
+  const updateUser = await User.findByIdAndUpdate(
+    id,
+    {
+      money: user.money,
+    },
+    { new: true }
+  );
+  req.session.user = updateUser;
+
   return res.redirect("/");
 };

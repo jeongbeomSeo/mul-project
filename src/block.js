@@ -144,3 +144,29 @@ export function nextBlock(prevBlock, user, item, price) {
 
   return new Block(header, body);
 }
+
+export function isValidNewBlock(newBlock, prevBlock) {
+  const bodyData = [
+    newBlock.header.timestamp +
+      newBlock.body.user +
+      newBlock.body.item +
+      newBlock.body.price,
+  ];
+  const merkleRoot = merkle("sha256").sync(bodyData).root();
+  if (newBlock.header.index !== prevBlock.header.index + 1) {
+    console.log("*** Invalid Index ***");
+    return false;
+  } else if (newBlock.header.previousBlockHash !== createHash(prevBlock)) {
+    console.log("*** Invalid BlockStructure ***");
+    return false;
+  } else if (merkleRoot !== newBlock.header.merkleRoot) {
+    console.log("*** Invalid MerkleRoot ***");
+    return false;
+  } else if (
+    !hashMatchesDifficulty(createHash(newBlock), newBlock.header.difficulty)
+  ) {
+    console.log("*** Invalid Difficulty ***");
+    return false;
+  }
+  return true;
+}

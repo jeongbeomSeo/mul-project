@@ -7,6 +7,7 @@ import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import { localsMiddleware } from "./middleware.js";
 import productRouter from "./routers/productRouter.js";
+import apiRouter from "./routers/apiRouter.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use(expressLayouts);
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
@@ -34,5 +36,6 @@ app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/api", apiRouter);
 
 export default app;

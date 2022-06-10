@@ -25,6 +25,9 @@
       <li class="nav-item">
         <a href=<%=`/user/${loggedInUser._id}/profile`%>><%=loggedInUser.name%></a>
       </li>
+      <li class="have-money">
+        <span><%=loggedInUser.money%></span>
+      </li>
       <li class="nav-item">
         <a href=<%=`/user/logout`%>>log out</a>
       </li>
