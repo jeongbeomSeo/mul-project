@@ -7,20 +7,18 @@
   </div>
   <%} else { %>
   <ul class="item-list">
-    <% products.forEach((item) => { %> <% if(!item.sold) { %>
+    <% products.forEach((item) => { %> <% if(item.sold) { %>
     <div class="item" data-id="<%-item.id%>">
       <a href="/product/<%=item.id%>">
         <img src="/<%=item.image%>" width="100" height="100" />
         <li class="item-name">품명 : <%=item.item%></li>
         <li class="item-desc">상세 내용: <%=item.description%></li>
         <li class="item-price">최소 가격: <%=item.price%></li>
-        <!-- <li class="item-price">아이템 유효 검사: <%=item.valid%></li> -->
-        <li class="item-count" data-time="<%-item.time%>"></li>
+        <li class="item-price">아이템 유효 검사: <%=item.valid%></li>
+        <li class="itme buyer">구매자 아이디: <%=item.user.userId%></li>
       </a>
     </div>
     <% } %>
   </ul>
   <% })%> <% } %>
 </div>
-
-<script src="/assets/js/productCount.js"></script>

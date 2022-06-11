@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
   description: { type: String },
   image: { type: String },
   sold: { type: Boolean, default: false },
-  entrant: [{ type: Object }],
+  entrants: [{ type: Object }],
+  bidderId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Product = mongoose.model("Product", productSchema);

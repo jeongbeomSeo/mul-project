@@ -1,14 +1,18 @@
 const counts = document.getElementsByClassName("item-count");
 const item = document.getElementsByClassName("item");
 
-const sold = (index) => {
+const sold = async (index) => {
+  // fetch 이용해서 User DB에 해당 Product 넣어주기.
   const soldItemId = item[index].dataset.id;
-  fetch(`/api/${soldItemId}/sold`, {
+  const response = await fetch(`/api/${soldItemId}/sold`, {
     method: "POST",
   });
-  // fetch 이용해서 User DB에 해당 Product 넣어주기.
-  // Product넣어주면서 sold는 true로 바꿔주기.
-  // Product sold값이 ture인 것은 경매 기록에서 Rendering
+  if (response.status === 404) {
+    alert("Error 발생");
+  }
+  if (response.status === 400) {
+    alert("이미 팔린 상품입니다.");
+  }
   // 경매 기록 페이지에선 누구의 userId가 경매에 성공했는지 보여주기. (entrant 객체의 id값 이용).
   // Product sold값이 false인 것은 list page에서 Rendering
 };
@@ -19,6 +23,7 @@ const countDown = () => {
     const date = new Date(createdAt);
     const currentTime = new Date();
     const deadLine = new Date(date.getTime() + 1000 * 60 * 60 * 48);
+    sold(index);
     if (deadLine.getTime() - currentTime.getTime() == 0) {
       sold(index);
     }
@@ -39,4 +44,4 @@ const countDown = () => {
 
 countDown();
 
-setInterval(countDown, 1000);
+// setInterval(countDown, 1000);

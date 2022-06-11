@@ -48,7 +48,7 @@ const entry = async () => {
     message = blankEnter();
     return;
   }
-  if (entry_money <= lowerPrice) {
+  if (entry_money < lowerPrice) {
     message = lowMoney();
     return;
   }
@@ -72,4 +72,11 @@ const entry = async () => {
   }
 };
 
+const enter = (e) => {
+  if (e.keyCode === 13) {
+    entry();
+  }
+};
+
 btn.addEventListener("click", entry);
+input.addEventListener("keypress", enter);

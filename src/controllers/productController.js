@@ -8,6 +8,26 @@ import {
 } from "../block";
 import Product from "../models/Product";
 
+const makingBlock = (products) => {
+  return products.map((product) => {
+    const header = new findBlock(
+      product.index,
+      product.previousBlockHash,
+      product.merkleRoot,
+      product.timestamp,
+      product.difficulty
+    );
+    const body = new BlockBody(
+      product.time,
+      product.user,
+      product.item,
+      product.price
+    );
+    const block = new Block(header, body);
+    return block;
+  });
+};
+
 export const getRegist = (req, res) => {
   return res.render("regist", { pageTitle: "Register Page" });
 };
@@ -45,7 +65,6 @@ export const postRegist = async (req, res) => {
     );
     const preBlock = new Block(header, body);
     block = nextBlock(preBlock, user._id, name, price);
-    console.log(block);
   }
   await Product.create({
     index: block.header.index,
@@ -66,30 +85,18 @@ export const postRegist = async (req, res) => {
 
 export const getList = async (req, res) => {
   let blocks = [];
-  const products = await Product.find({});
-  if (!products) {
+  const products = await Product.find({ sold: false });
+  // find의 경우 여러개를 찾는 거라서 !product가 작동하지 않는다. object형태이기 때문이다.
+  // findOnde의 경우는 하나늘 찾는 것이고 없으면 !product가 적용된다. null이기 때문이다.
+  // 참고: https://velog.io/@soyi47/Javascript-%EB%B9%88-%EA%B0%9D%EC%B2%B4-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0
+  // 참고: https://haenny.tistory.com/136
+  if (Object.keys(products).length === 0) {
     return res.render("list", {
       pageTitle: "Product List",
       empty: "Empty",
     });
   }
-  blocks = products.map((product) => {
-    const header = new findBlock(
-      product.index,
-      product.previousBlockHash,
-      product.merkleRoot,
-      product.timestamp,
-      product.difficulty
-    );
-    const body = new BlockBody(
-      product.time,
-      product.user,
-      product.item,
-      product.price
-    );
-    const block = new Block(header, body);
-    return block;
-  });
+  blocks = makingBlock(products);
   products[0].valid = true;
   for (let i = 1; i < blocks.length; i++) {
     products[i].valid = isValidNewBlock(blocks[i], blocks[i - 1]);
@@ -111,4 +118,22 @@ export const getDetail = async (req, res) => {
   return res
     .status(200)
     .render("detail", { pageTitle: "Product Detail", product });
+};
+
+export const getHistory = async (req, res) => {
+  let blocks = [];
+  // 팔린 상품만 불러오기.
+  const products = await Product.find({ sold: true }).populate("user");
+  if (Object.keys(products).length === 0) {
+    return res.render("list", {
+      pageTitle: "Product List",
+      empty: "Empty",
+    });
+  }
+  blocks = makingBlock(products);
+  products[0].valid = true;
+  for (let i = 1; i < blocks.length; i++) {
+    products[i].valid = isValidNewBlock(blocks[i], blocks[i - 1]);
+  }
+  return res.render("history", { pageTitle: "Product List", products });
 };
