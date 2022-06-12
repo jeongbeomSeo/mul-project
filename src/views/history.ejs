@@ -8,17 +8,14 @@
   <%} else { %>
   <ul class="item-list">
     <% products.forEach((item) => { %> <% if(item.sold) { %>
-    <div class="item" data-id="<%-item.id%>">
-      <a href="/product/<%=item.id%>">
-        <img src="/<%=item.image%>" width="100" height="100" />
-        <li class="item-name">품명 : <%=item.item%></li>
-        <li class="item-desc">상세 내용: <%=item.description%></li>
-        <li class="item-price">최소 가격: <%=item.price%></li>
-        <li class="item-price">아이템 유효 검사: <%=item.valid%></li>
-        <li class="itme buyer">구매자 아이디: <%=item.user.userId%></li>
-      </a>
+    <div class="item sold-item" data-id="<%-item.id%>">
+      <img src="/<%=item.image%>" width="100" height="100" />
+      <li class="item-name"><%=item.item%></li>
+      <li class="item-price">낙찰 가격: <%=item.soldPrice%></li>
+      <li class="item-seller">판매자 아이디: <%=item.user.userId%></li>
+      <li class="item-buyer">구매자 아이디: <%=item.bidderId.name%></li>
+      <li class="item-valid">아이템 유효 검사: <%=item.valid%></li>
     </div>
-    <% } %>
   </ul>
-  <% })%> <% } %>
+  <% } %> <% })%> <% } %>
 </div>

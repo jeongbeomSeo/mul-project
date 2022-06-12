@@ -1,0 +1,19 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background: #f1f5f5;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.footer-content span {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.3);
+}

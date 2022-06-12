@@ -16,6 +16,8 @@ const productSchema = new mongoose.Schema({
   sold: { type: Boolean, default: false },
   entrants: [{ type: Object }],
   bidderId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  soldPrice: { type: Number },
+  valid: { type: Boolean, required: true, default: false },
 });
 
 const Product = mongoose.model("Product", productSchema);

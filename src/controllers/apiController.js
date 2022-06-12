@@ -8,7 +8,7 @@ export const postSoldItem = async (req, res) => {
 
   const product = await Product.findById({ _id: id });
   if (!product) {
-    return res.sendStatus(404);
+    return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
   }
 
   // 팔리지 않은 상품
@@ -20,18 +20,24 @@ export const postSoldItem = async (req, res) => {
     const bidder = product.entrants.find(
       (entrant) => entrant.entry_money === maxEntryMoney
     );
-
-    // 해당 Product의 sold를 true로 바꿔주고, entrant에 product넣어주기(push).
-    // 해당 Product에 누가 샀는지도 넣어주기.
+    if (!bidder) {
+      return res.status(404).json({ message: "아무도 사지 않았습니다." });
+    }
+    // 해당 Product의 sold를 true로 바꿔주고, entrant에 product넣어주기(push), soldPrice도 넣어주기.
     await Product.findByIdAndUpdate(id, {
       sold: true,
       bidderId: bidder.id,
+      soldPrice: maxEntryMoney,
     });
+    // 해당 Product에 누가 샀는지도 넣어주기.
+    const buyer = await User.findById(bidder.id);
+    buyer.buyItems.push(product._id);
+    await buyer.save();
+
+    // 해당 Product의 모든 입찰자들 돈 Pacback처리.
     const notEntrants = product.entrants.filter(
       (entrant) => entrant !== bidder
     );
-    console.log(notEntrants);
-    // 해당 Product의 모든 입찰자들 돈 Pacback처리.
     for (const person of notEntrants) {
       const user = await User.findById(person.id);
       user.money += person.entry_money;

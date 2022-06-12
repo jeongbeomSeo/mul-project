@@ -1,12 +1,17 @@
 <div class="header-inner">
+  <div class="header__logo">
+    <a href="/">
+      <i class="fa-solid fa-font-awesome"></i>
+    </a>
+  </div>
   <div class="header__title">
-    <a href="/"> <strong>멀미설 프로젝트</strong></a>
+    <span>중고 경매 거래 플랫폼</span>
   </div>
 
   <nav class="header__nav">
     <ul class="header__nav-items">
       <li class="nav-item">
-        <a href="/product/list">상품 List</a>
+        <a href="/">상품 List</a>
       </li>
       <li class="nav-item">
         <a href="/product/regist">상품 등록</a>
@@ -26,12 +31,13 @@
         <a href=<%=`/user/${loggedInUser._id}/profile`%>><%=loggedInUser.name%></a>
       </li>
       <li class="have-money">
-        <span><%=loggedInUser.money%></span>
+    <span><i class="fa-solid fa-coins"></i><%=loggedInUser.money%></span>
       </li>
       <li class="nav-item">
-        <a href=<%=`/user/logout`%>>log out</a>
+        <a href=<%=`/user/logout`%>>Log out</a>
       </li>
       <% } %>
     </ul>
   </nav>
 </div>
+

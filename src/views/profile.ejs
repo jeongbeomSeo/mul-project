@@ -2,10 +2,30 @@
 
 <div class="profile">
   <div class="title"><%=loggedInUser.name%>의 Profile</div>
+  <div class="userName">이름: <%=loggedInUser.name %></div>
   <div class="description">
-    <span>자기 PR</span>
+    설명 :
+    <span
+      >안녕하세요. 저는 세종대학교 전자정보통신공학과에서 재학중인 서정범 이라고
+      합니다.</span
+    >
   </div>
-  <div class="userName"><%=loggedInUser.name %></div>
-  <div class="userEmail"><%=loggedInUser.email %></div>
-  <a href="chargeMoney">충전(5000원)</a>
+  <div class="userEmail">이메일: <%=loggedInUser.email %></div>
+  <div class="charge">
+    <a href="chargeMoney">충전(5000원)</a>
+  </div>
+  <div class="buy-item">구매 품목</div>
+  <ul class="item-list">
+    <% if(typeof buyer.buyItems !== 'undefined') { %> <%
+    buyer.buyItems.forEach((item) => { %> <% if(item.sold) { %>
+    <div class="item sold-item" data-id="<%-item.id%>">
+      <img src="/<%=item.image%>" width="100" height="100" />
+      <li class="item-name"><%=item.item%></li>
+      <li class="item-price">낙찰 가격: <%=item.soldPrice%></li>
+      <li class="item-seller">판매자 아이디: <%=item.user.userId%></li>
+      <li class="item-buyer">구매자 아이디: <%=item.bidderId.name%></li>
+      <li class="item-valid">아이템 유효 검사: <%=item.valid%></li>
+    </div>
+  </ul>
+  <% } %> <% })%> <% } %>
 </div>

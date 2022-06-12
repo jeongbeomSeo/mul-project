@@ -1,9 +1,10 @@
 import express from "express";
-import { home, error } from "../controllers/objectController";
+import { error } from "../controllers/objectController";
+import { getList } from "../controllers/productController";
 
 const rootRouter = express.Router();
 
-rootRouter.get("/", home);
+rootRouter.get("/", getList);
 rootRouter.get("/404", error);
 
 export default rootRouter;

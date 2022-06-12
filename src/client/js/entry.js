@@ -3,6 +3,7 @@
 const input = document.getElementById("entry_money");
 const btn = document.getElementById("entry");
 const item = document.getElementsByClassName("item");
+const product_detail = document.getElementById("product-detail");
 
 let message, timerId;
 
@@ -10,7 +11,7 @@ const blankEnter = () => {
   message = document.createElement("span");
   message.id = "message";
   message.innerHTML = "숫자를 입력하세요";
-  item[0].appendChild(message);
+  product_detail.appendChild(message);
   if (timerId) {
     clearTimeout(timerId);
   }
@@ -24,7 +25,7 @@ const lowMoney = () => {
   message = document.createElement("span");
   message.id = "message";
   message.innerHTML = "최소 가격 보다 높게 입력하세요.";
-  item[0].appendChild(message);
+  product_detail.appendChild(message);
   if (timerId) {
     clearTimeout(timerId);
   }

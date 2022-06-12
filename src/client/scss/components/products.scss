@@ -1,0 +1,43 @@
+.list-box {
+  margin: 0 auto;
+}
+
+.item-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.item-list .item {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-list .item img {
+  width: 100%;
+  height: 200px;
+}
+
+.item-list .item li {
+  margin: 15px;
+}
+
+.item-list .item-name {
+  font-weight: 500;
+}
+
+.item-list .item-price,
+.item-count,
+.item-seller,
+.item-buyer,
+.item-valid {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.sold-item {
+  opacity: 0.5;
+}
+
+.item-valid {
+  color: red;
+}

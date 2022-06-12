@@ -34,7 +34,6 @@ export const postSignup = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
-    console.log(error);
     //Create Error Page
     return res.status(400).render("404", {
       pageTitle: "Error Page",
@@ -69,7 +68,7 @@ export const postLogin = async (req, res) => {
   return res.redirect("/");
 };
 
-export const profile = (req, res) => {
+export const profile = async (req, res) => {
   const {
     params: { id },
     session: { user },
@@ -81,7 +80,9 @@ export const profile = (req, res) => {
       errorMessage: "You are not the owner of the profile account.",
     });
   }
-  return res.render("profile", { pageTitle: "Profile" });
+  // 구매 유저 품목 불러오기.
+  const buyer = await User.findById(user._id).populate("buyItems");
+  return res.render("profile", { pageTitle: "Profile", buyer });
 };
 
 export const logout = (req, res) => {

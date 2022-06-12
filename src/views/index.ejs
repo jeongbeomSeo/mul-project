@@ -1,4 +1,32 @@
 <%- contentFor('body') %>
-<div class="main-middle">
-  <span>This Page is Home Page</span>
+
+<div class="list-box">
+  <% if(typeof empty !== 'undefined') { %>
+  <div class="empty">
+    <h1><%=empty%></h1>
+  </div>
+  <%} else { %>
+  <ul class="item-list">
+    <% products.forEach((item) => { %> <% if(!item.sold) { %>
+    <div class="item" data-id="<%-item.id%>">
+      <% if(item.valid) { %>
+      <a href="/product/<%=item.id%>">
+        <img src="/<%=item.image%>" />
+        <li class="item-name"><%=item.item%></li>
+        <li class="item-price">
+          <i class="fa-solid fa-won-sign"></i> <%=item.price%>
+        </li>
+        <!-- <li class="item-price">아이템 유효 검사: <%=item.valid%></li> -->
+        <li class="item-count" data-time="<%-item.time%>"></li>
+      </a>
+      <% } else { %>
+      <img src="/<%=item.image%>" />
+      <li class="item-name"><%=item.item%></li>
+      <li class="item-valid">아이템 유효 검사: <%=item.valid%></li>
+      <li class="item-count" data-time="<%-item.time%>"></li>
+      <% } %>
+    </div>
+    <% } %> <% })%>
+  </ul>
+  <% } %>
 </div>

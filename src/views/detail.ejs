@@ -1,17 +1,26 @@
 <%- contentFor('body') %>
-
-<div class="item" data-id="<%-product.id%>">
-  <img src="/<%=product.image%>" width="100" height="100" />
-  <li class="item-name">품명 : <%=product.item%></li>
-  <li class="item-desc">상세 내용: <%=product.description%></li>
-  <li class="item-price" data-price="<%-product.price%>">
-    최소 가격: <%=product.price%>
-  </li>
-  <li class="item-count" data-time="<%-product.time%>"></li>
-  <input type="number" id="entry_money" placeholder="경매 등록 금액" />
-  <button id="entry">Entry</button>
-  <span id="message"></span>
+<div class="detail">
+  <div class="title">상품 설명</div>
+  <div class="item" data-id="<%-product.id%>">
+    <div class="product-img">
+      <img src="/<%=product.image%>" width="100" height="100" />
+    </div>
+    <div id="product-detail">
+      <li class="item-name">품명 : <%=product.item%></li>
+      <li class="item-desc">상세 내용: <%=product.description%></li>
+      <li class="item-price" data-price="<%-product.price%>">
+        최소 가격: <%=product.price%>
+      </li>
+      <li class="item-current-price" data-price="<%-product.price%>">
+        입찰 최고가: <%=maxEntryMoney%> 원
+      </li>
+      <li
+        class="item-count detail-item-conunt"
+        data-time="<%-product.time%>"
+      ></li>
+      <input type="number" id="entry_money" placeholder="경매 등록 금액" />
+      <button id="entry">Entry</button>
+    </div>
+  </div>
 </div>
-
-<script src="/assets/js/productCount.js"></script>
 <script src="/assets/js/entry.js"></script>

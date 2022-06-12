@@ -1,0 +1,58 @@
+form {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+input:not([type="number"]) {
+  all: unset;
+  padding: 15px 20px;
+  border-radius: 5px;
+  border: 2px solid $blue;
+  margin-bottom: 15px;
+  font-size: 16px;
+  width: 90%;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+input[type="submit"] {
+  border-radius: 5px;
+  padding: 12px 20px;
+  background-color: $blue !important;
+  color: white !important;
+  text-align: center !important;
+  cursor: pointer;
+  display: block;
+  border: none;
+  transition: font-weight 0.5s ease-in-out;
+  &:hover {
+    font-weight: 700;
+  }
+}
+
+.login-signup-pageChange {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  color: $blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: 700;
+}
+.login-signup-pageChange span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.login-signup-pageChange a {
+  font-weight: 500;
+}
+
+form label span {
+  display: block;
+  margin-bottom: 5px;
+  color: $blue;
+}

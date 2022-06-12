@@ -1,0 +1,59 @@
+.profile {
+  margin: 150px auto;
+  border: 2px solid $blue;
+  border-radius: 20px;
+  padding: 30px;
+  color: $blue;
+  font-weight: 700;
+}
+
+.profile div {
+  margin-bottom: 30px;
+}
+
+.profile .title {
+  text-align: center;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile .userName {
+  font-size: 22px;
+}
+
+.profile .description {
+  font-size: 18px;
+  line-height: 150%;
+}
+
+.profile .userEmail {
+  font-size: 18px;
+}
+
+.profile .charge {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 50px;
+}
+
+.profile a {
+  font-size: 25px;
+  padding: 10px 50px;
+  text-align: center;
+  border: 1px solid $blue;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.profile a:hover {
+  background-color: $blue;
+  color: white;
+}
+
+.profile .buy-item {
+  display: block;
+  font-size: 30px;
+  padding-top: 20px;
+  border-top: 1px solid $blue;
+}

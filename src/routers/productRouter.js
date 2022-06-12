@@ -15,7 +15,7 @@ productRouter
   .all(protectorMiddleware)
   .get(getRegist)
   .post(uploadImage.single("image"), postRegist);
-productRouter.get("/list", getList);
+productRouter.get("/", getList);
 productRouter.get("/history", getHistory);
 productRouter.get("/:id([0-9a-f]{24})", getDetail);
 
