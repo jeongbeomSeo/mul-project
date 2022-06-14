@@ -1,10 +1,10 @@
 const counts = document.getElementsByClassName("item-count");
 const item = document.getElementsByClassName("item");
 
-const sold = async (/* RealCode:  index */) => {
+const sold = async (index) => {
   // fetch 이용해서 User DB에 해당 Product 넣어주기.
-  // const soldItemId = item[index].dataset.id; Real Code;
-  const soldItemId = item[0].dataset.id; // Test Code
+  const soldItemId = item[index].dataset.id; //Real Code
+  //const soldItemId = item[0].dataset.id; // Test Code
   const response = await fetch(`/api/${soldItemId}/sold`, {
     method: "POST",
   });
@@ -13,19 +13,23 @@ const sold = async (/* RealCode:  index */) => {
     alert(message);
   }
   if (response.status === 400) {
-    alert("물품이 팔렸습니다.");
+    alert(message);
   }
   // 경매 기록 페이지에선 누구의 userId가 경매에 성공했는지 보여주기. (entrant 객체의 id값 이용).
   // Product sold값이 false인 것은 list page에서 Rendering
 };
 
 const countDown = () => {
-  for (let index = 0; index < counts.length; index++) {
+  for (let index = 1; index < counts.length; index++) {
     const createdAt = counts[index].dataset.time;
     const date = new Date(createdAt);
     const currentTime = new Date();
-    const deadLine = new Date(date.getTime() + 1000 * 60 * 60 * 48);
-    if (deadLine.getTime() - currentTime.getTime() == 0) {
+    const deadLine = new Date(date.getTime() + 1000 * 60 * 2);
+    if (
+      Math.floor(deadLine.getTime() / 1000) -
+        Math.floor(currentTime.getTime() / 1000) ==
+      0
+    ) {
       sold(index);
     }
     const diffSecond = `${Math.floor(

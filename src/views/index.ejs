@@ -7,7 +7,7 @@
   </div>
   <%} else { %>
   <ul class="item-list">
-    <% products.forEach((item) => { %> <% if(!item.sold) { %>
+    <% products.forEach((item) => { %> <% if(!item.sold && !item.timeOut) { %>
     <div class="item" data-id="<%-item.id%>">
       <% if(item.valid) { %>
       <a href="/product/<%=item.id%>">

@@ -21,6 +21,9 @@ export const postSoldItem = async (req, res) => {
       (entrant) => entrant.entry_money === maxEntryMoney
     );
     if (!bidder) {
+      await Product.findByIdAndUpdate(id, {
+        timeOut: true,
+      });
       return res.status(404).json({ message: "아무도 사지 않았습니다." });
     }
     // 해당 Product의 sold를 true로 바꿔주고, entrant에 product넣어주기(push), soldPrice도 넣어주기.
@@ -28,6 +31,7 @@ export const postSoldItem = async (req, res) => {
       sold: true,
       bidderId: bidder.id,
       soldPrice: maxEntryMoney,
+      timeOut: true,
     });
     // 해당 Product에 누가 샀는지도 넣어주기.
     const buyer = await User.findById(bidder.id);
@@ -43,7 +47,7 @@ export const postSoldItem = async (req, res) => {
       user.money += person.entry_money;
       await user.save();
     }
-    return res.sendStatus(200);
+    return res.status(400).json({ message: "물품이 팔렸습니다." });
   }
   //팔린 상품
   else {

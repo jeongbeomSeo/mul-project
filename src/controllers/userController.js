@@ -81,7 +81,13 @@ export const profile = async (req, res) => {
     });
   }
   // 구매 유저 품목 불러오기.
-  const buyer = await User.findById(user._id).populate("buyItems");
+  const buyer = await User.findById(user._id).populate({
+    path: "buyItems",
+    populate: {
+      path: "user",
+      select: { name: 1 },
+    },
+  });
   return res.render("profile", { pageTitle: "Profile", buyer });
 };
 
